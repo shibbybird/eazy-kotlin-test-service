@@ -1,7 +1,6 @@
 package com.eazyci.test.kotlin.service.services
 
-import com.datastax.oss.driver.api.core.session.Session
-import com.eazyci.test.kotlin.service.models.EventData
+import com.datastax.oss.driver.api.core.CqlSession
 import com.eazyci.test.kotlin.service.models.deserializeEventData
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.ByteArrayDeserializer
@@ -9,7 +8,7 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import java.time.Duration
 import java.util.*
 
-fun createEventDataConsumer(brokers: String, session: Session): Unit {
+fun createEventDataConsumer(brokers: String, session: CqlSession): Unit {
     val props = Properties()
     props["bootstrap.servers"] = brokers
     props["group.id"] = "test-group-id-1"
@@ -26,7 +25,6 @@ fun createEventDataConsumer(brokers: String, session: Session): Unit {
             val event = deserializeEventData(testObj)
             writeEventData(session, event)
         }
-
     }
 
 }

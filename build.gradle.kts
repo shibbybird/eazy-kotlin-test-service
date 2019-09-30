@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm") version "1.2.71"
+    kotlin("jvm") version "1.3.50"
     application
+    id("org.unbroken-dome.test-sets") version "2.2.0"
+    id("com.github.johnrengelman.shadow") version "5.1.0"
 }
 
 repositories {
@@ -16,9 +20,30 @@ dependencies {
     implementation("com.datastax.cassandra:cassandra-driver-core:4.0.0")
     implementation("com.datastax.oss:java-driver-query-builder:4.0.0")
     implementation("org.cassandraunit:cassandra-unit:3.11.2.0")
+    implementation("org.slf4j:slf4j-api:1.7.28")
+    implementation("org.slf4j:slf4j-log4j12:1.7.28")
     testImplementation("junit:junit:4.12")
 }
 
 application {
     mainClassName = "com.eazyci.test.kotlin.service.MainKt"
+}
+
+testSets {
+    "integration"()
+}
+
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+tasks.withType<Jar>{
+    archiveName = "eazy-kotlin-test-service.jar"
+    manifest {
+        attributes(
+                "Main-Class" to "com.eazyci.test.kotlin.service.MainKt"
+        )
+    }
 }
