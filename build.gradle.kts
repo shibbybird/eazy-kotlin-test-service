@@ -22,6 +22,8 @@ dependencies {
     implementation("org.cassandraunit:cassandra-unit:3.11.2.0")
     implementation("org.slf4j:slf4j-api:1.7.28")
     implementation("org.slf4j:slf4j-log4j12:1.7.28")
+    implementation("io.ktor:ktor-server-core:1.2.4")
+    implementation("io.ktor:ktor-server-netty:1.2.4")
     testImplementation("junit:junit:4.12")
 }
 

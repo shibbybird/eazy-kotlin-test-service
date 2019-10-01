@@ -5,16 +5,20 @@ releases:
 image: 'shibbybird/eazy-ci-kotlin-test-service'
 deployment:
   ports:
-    - 8081
+    - 7070
   health:
     - '/bin/sh'
     - '-c'
-    - 'while ! curl http://host.docker.internal:8080/health; do sleep 1; done;'
+    - 'while ! curl http://host.docker.internal:7070/health; do sleep 1; done;'
 integration:
+  bootstrap:
+    - '/bin/sh'
+    - '-c'
+    - 'cqlsh host.docker.internal --cqlversion=3.4.4 -f /root/build/cassandra/init.cql'
   runTest:
     - '/bin/sh'
     - '-c'
-    - 'npm test'
+    - './gradlew integration'
   peerDependencies:
     - 'github.com/shibbybird/eazy-ci-kafka'
     - 'github.com/shibbybird/eazy-ci-cassandra'

@@ -1,4 +1,4 @@
-FROM java:8u222-jre
+FROM openjdk:8u222-jre
 
 RUN useradd -ms /bin/bash eazyci
 
