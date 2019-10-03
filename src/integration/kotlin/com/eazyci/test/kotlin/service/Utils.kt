@@ -28,7 +28,7 @@ abstract class Retriable<X> {
 
 fun createProducer():  KafkaProducer<String, ByteArray> {
     val props = Properties()
-    props["bootstrap.servers"] = "host.docker.internal:9092"
+    props["bootstrap.servers"] = "eazy-ci-kafka:9092"
     props["key.serializer"] = StringSerializer::class.java
     props["value.serializer"] = ByteArraySerializer::class.java
     return KafkaProducer<String, ByteArray>(props)

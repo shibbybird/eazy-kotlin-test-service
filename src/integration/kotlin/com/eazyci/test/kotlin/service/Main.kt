@@ -26,7 +26,7 @@ class Main {
 
         sendMessage(producer, event)
 
-        val session = getCassandraSession("host.docker.internal", 9042)
+        val session = getCassandraSession("eazy-ci-cassandra", 9042)
         val retriable = object : Retriable<List<Row>>() {
             override fun run(): List<Row> {
                 println("SELECT * FROM events WHERE key=\"$uuid\";")

@@ -1,4 +1,5 @@
 eazyVersion: '1.0'
+name: 'eazy-kotlin-test-service'
 releases:
   - 'latest'
   - '0.0.1'
@@ -9,12 +10,12 @@ deployment:
   health:
     - '/bin/sh'
     - '-c'
-    - 'while ! curl http://host.docker.internal:7070/health; do sleep 1; done;'
+    - 'while ! curl http://eazy-kotlin-test-service:7070/health; do sleep 1; done;'
 integration:
   bootstrap:
     - '/bin/sh'
     - '-c'
-    - 'cqlsh host.docker.internal --cqlversion=3.4.4 -f /root/build/cassandra/init.cql'
+    - 'cqlsh eazy-ci-cassandra --cqlversion=3.4.4 -f /root/build/cassandra/init.cql'
   runTest:
     - '/bin/sh'
     - '-c'
