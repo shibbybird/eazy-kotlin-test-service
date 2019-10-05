@@ -4,7 +4,15 @@ releases:
   - 'latest'
   - '0.0.1'
 image: 'shibbybird/eazy-ci-kotlin-test-service'
+build:
+  image: 'gradle:5.2.1-jdk8'
+  command:
+    - '/bin/sh'
+    - '-c'
+    - 'gradle build'
 deployment:
+  env:
+    - 'APP_ENV=integration'
   ports:
     - 7070
   health:
@@ -20,6 +28,7 @@ integration:
     - '/bin/sh'
     - '-c'
     - './gradlew integration'
+  dependencies:
+    - 'github.com/shibbybird/eazy-ci-cassandra'
   peerDependencies:
     - 'github.com/shibbybird/eazy-ci-kafka'
-    - 'github.com/shibbybird/eazy-ci-cassandra'

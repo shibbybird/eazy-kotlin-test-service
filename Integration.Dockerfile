@@ -1,4 +1,7 @@
-FROM gradle:5.6.2-jdk8
+FROM gradle:5.2.1-jdk8
+
+USER root
+
 RUN mkdir -p /root/build
 
 RUN apt-get update
